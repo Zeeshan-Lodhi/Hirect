@@ -1,0 +1,56 @@
+.homePage {
+    height: 95vh;
+    width: 98vw;
+    flex-direction: column;
+    background-color: rgb(249, 249, 249);
+}
+
+.content_section {
+    border: 2x solid black;
+    margin-bottom: 60px;
+}
+
+.title {
+    font-size: 51px;
+    text-align: center;
+    width: 80vw;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.description {
+    text-align: center;
+    width: 75vw;
+    font-size: 19px;
+}
+
+
+.selectWrapper {
+    border-radius: 36px;
+    display: inline-block;
+    overflow: hidden;
+    box-shadow: rgb(0 0 0 / 35%) 0px 5px 15px;
+    display: flex;
+}
+
+.selectBox {
+    padding: 11px;
+    width: 225px;
+    height: 59px;
+    border: 0px;
+    outline: none;
+    cursor: pointer;
+}
+
+.hiring {
+    border: none;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    display: inline-block;
+    padding: 18px 24px;
+    text-decoration: none;
+    transition: 0.5s;
+    color: white;
+    background-color: var(--green);
+    font-size: 16px;
+}
