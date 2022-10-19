@@ -6,6 +6,8 @@ import logo from './download.png'
 import logo2 from './logo2.png'
 import logo3 from './logo3.png'
 import logo4 from './logo4.png'
+
+
 const Details = () => {
     const location = useLocation()
     const params = new URLSearchParams(location.search)
@@ -13,7 +15,6 @@ const Details = () => {
     const [experience, setExperience] = useState("")
     const [salary, setSalary] = useState("")
     const [hiringData, setHiringData] = useState([])
-    const [filterExperience, setFilterExperience] = useState([])
     const fetchHiringData = async () => {
         const skill = (params.get("skill"));
         const location = (params.get("location"));
@@ -23,6 +24,7 @@ const Details = () => {
         setHiringData(data)
     }
     useEffect(() => {
+        // eslint-disable-next-line
         fetchHiringData()
     }, [experience, salary])
 

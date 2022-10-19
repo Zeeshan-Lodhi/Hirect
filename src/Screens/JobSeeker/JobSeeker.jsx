@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './jobSeeker.css'
 import emailjs from 'emailjs-com'
 
@@ -9,14 +9,23 @@ const JobSeeker = () => {
     const [city, setCity] = useState("")
     const [designation, setDesignation] = useState("")
     const [category, setCategory] = useState("")
+    const [file, setFile] = useState("")
     const [id, setID] = useState("")
     const [password, setPassword] = useState("")
+
+    const [formData, setformData] = useState([])
     const formRef = useRef()
 
     const subMitForm = (e) => {
         e.preventDefault()
         setPassword(Math.random().toString(36).slice(2));
         setID(new Date().getTime().toString())
+
+        const newData = setformData([
+            { name, email, city, phone, designation, category, id, password, file },
+            ...formData
+        ])
+
 
         emailjs.sendForm('service_vp8wkp9', 'template_ex7iigi', formRef.current, '2FNwtA1ahticn1IVH')
             .then((result) => {
@@ -32,7 +41,15 @@ const JobSeeker = () => {
         setCity("")
         setEmail("")
         setPhone("")
+        setFile("")
     }
+    useEffect(() => {
+        if (formData?.length) {
+            localStorage.setItem("FormData", JSON.stringify(formData))
+        }
+
+    }, [formData])
+
     return (
         <>
             <div className="row mt-5 jobSeeker">
@@ -43,23 +60,23 @@ const JobSeeker = () => {
 
                 <div className="left col">
                     <div className="container formCard">
-                        <h4 className='text-center font-weight-bold'>Let us Simplify the Hiring Process</h4>
+                        <h4 className='text-center font-weight-bold'>Let us Simplify the Job Search Process</h4>
                         <p className='mx-5 text-center'>Register to find your Next Hire. Get Started Soon.</p>
                         <form className="container" ref={formRef}>
 
                             <div className='d-flex flex-column mt-4 container' style={{ gap: "15px" }}>
 
-                                <input type="text" autoComplete="off" placeholder="Name" className="el-input__inner" value={name} onChange={(e) => setName(e.target.value)} name="name" />
+                                <input type="text" autoComplete="off" placeholder="Name" className="el-input__inner" required value={name} onChange={(e) => setName(e.target.value)} name="name" />
 
-                                <input type="text" autoComplete="off" placeholder="Enter mobile number" className="el-input__inner" onChange={(e) => setPhone(e.target.value)} value={phone} />
+                                <input type="text" autoComplete="off" placeholder="Enter mobile number" className="el-input__inner" onChange={(e) => setPhone(e.target.value)} required value={phone} />
 
                                 <input type="email" autoComplete="off" placeholder="Official Email" className="el-input__inner" onChange={(e) => setEmail(e.target.value)} value={email} name="user_email" />
 
-                                <input type="text" autoComplete="off" placeholder="City Name" className="el-input__inner" onChange={(e) => setCity(e.target.value)} value={city} />
+                                <input type="text" autoComplete="off" placeholder="City Name" className="el-input__inner" onChange={(e) => setCity(e.target.value)} required value={city} />
 
-                                <input type="text" autoComplete="off" placeholder="Designation" className="el-input__inner" onChange={(e) => setDesignation(e.target.value)} value={designation} />
+                                <input type="text" autoComplete="off" placeholder="Designation" className="el-input__inner" onChange={(e) => setDesignation(e.target.value)} required value={designation} />
 
-                                <select className="el-input__inner" style={{ height: "40px" }} onChange={(e) => setCategory(e.target.value)}>
+                                <select required className="el-input__inner" style={{ height: "40px" }} onChange={(e) => setCategory(e.target.value)}>
                                     <option value="">Category</option>
                                     <option value="Freelance">Freelance</option>
                                     <option value="Part time">Part time</option>
@@ -69,8 +86,9 @@ const JobSeeker = () => {
                                 </select>
 
                                 <label className='ml-3  mb-0'>Upload CV/Resume:</label>
-                                <input type="file" autoComplete="off" placeholder="Name" className='ml-2' />
-                                <div > <button className="submitForm" onClick={subMitForm}>Submit</button></div>
+                                <input type="file" autoComplete="off" placeholder="Name" className='ml-2' required value={file} onChange={(e) => setFile(e.target.value)} />
+
+                                <div > <button className="submitForm" type='submit' onClick={subMitForm}>Submit</button></div>
 
                             </div>
                         </form>

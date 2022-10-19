@@ -1,6 +1,6 @@
 .homePage {
-    height: 95vh;
-    width: 98vw;
+    height: 88vh;
+    width: 100vw;
     flex-direction: column;
     background-color: rgb(249, 249, 249);
 }
